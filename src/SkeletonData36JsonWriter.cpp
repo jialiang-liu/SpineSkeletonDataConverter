@@ -13,7 +13,7 @@ void writeCurve(const TimelineFrame& frame, Json& j) {
 void writeTimeline(const std::vector<TimelineFrame>& timeline, Json& j, int valueNum, const std::string& key1, const std::string& key2, float defaultValue) {
     for (const auto& frame : timeline) {
         Json frameJson = Json::object();
-        frameJson["time"] = frame.time;
+        frameJson["time"] = static_cast<double>(frame.time);
         frameJson[key1] = frame.value1;
         if (valueNum > 1) frameJson[key2] = frame.value2;
         writeCurve(frame, frameJson);
