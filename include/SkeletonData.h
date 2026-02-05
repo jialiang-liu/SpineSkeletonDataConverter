@@ -375,7 +375,7 @@ struct Attachment {
 }; 
 
 struct TimelineFrame {
-    float time = 0.0f; 
+    double time = 0.0f; 
     OptStr str1 = std::nullopt, str2 = std::nullopt; 
     int int1 = 0; 
     float value1 = 0.0f, value2 = 0.0f, value3 = 0.0f, value4 = 0.0f, value5 = 0.0f, value6 = 0.0f; 
