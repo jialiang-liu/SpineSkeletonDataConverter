@@ -225,8 +225,8 @@ void dumpJsonToOss(const Json& j, std::ostringstream& oss) {
             first = false;
         }
         oss << "}";
-    } else if (j.is_number_float()) {
-        oss << formatNumber(j.get<double>());
+    // } else if (j.is_number_float()) {
+    //     oss << formatNumber(j.get<double>());
     } else {
         oss << j.dump(); 
     }
@@ -299,3 +299,4 @@ uint64_t base64ToUint64(const std::string& str) {
     }
     return value;
 }
+
