@@ -219,7 +219,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 if (slotMap.contains("attachment")) {
                     for (const auto& frame : slotMap.at("attachment")) {
                         Json frameJson = Json::object();
-                        frameJson["time"] = frame.time;
+                        frameJson["time"] = static_cast<double>(frame.time);
                         if (frame.str1) frameJson["name"] = frame.str1.value();
                         else frameJson["name"] = nullptr;
                         slotJson["attachment"].push_back(frameJson);
@@ -228,7 +228,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 if (slotMap.contains("rgba") || slotMap.contains("rgb")) {
                     for (const auto& frame : slotMap.contains("rgba") ? slotMap.at("rgba") : slotMap.at("rgb")) {
                         Json frameJson = Json::object();
-                        frameJson["time"] = frame.time;
+                        frameJson["time"] = static_cast<double>(frame.time);
                         if (frame.color1) frameJson["color"] = colorToString(frame.color1.value(), true);
                         writeCurve(frame, frameJson);
                         slotJson["color"].push_back(frameJson);
@@ -237,7 +237,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 if (slotMap.contains("rgba2") || slotMap.contains("rgb2")) {
                     for (const auto& frame : slotMap.contains("rgba2") ? slotMap.at("rgba2") : slotMap.at("rgb2")) {
                         Json frameJson = Json::object();
-                        frameJson["time"] = frame.time;
+                        frameJson["time"] = static_cast<double>(frame.time);
                         if (frame.color1) frameJson["light"] = colorToString(frame.color1.value(), true);
                         if (frame.color2) frameJson["dark"] = colorToString(frame.color2.value(), false);
                         writeCurve(frame, frameJson);
@@ -270,7 +270,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 Json ikJson = Json::array();
                 for (const auto& frame : ikTimeline) {
                     Json frameJson = Json::object();
-                    frameJson["time"] = frame.time;
+                    frameJson["time"] = static_cast<double>(frame.time);
                     if (frame.value1 != 1.0f) frameJson["mix"] = frame.value1;
                     if (!frame.bendPositive) frameJson["bendPositive"] = frame.bendPositive;
                     writeCurve(frame, frameJson);
@@ -284,7 +284,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 Json transformJson = Json::array();
                 for (const auto& frame : transformTimeline) {
                     Json frameJson = Json::object();
-                    frameJson["time"] = frame.time;
+                    frameJson["time"] = static_cast<double>(frame.time);
                     if (frame.value1 != 1.0f) frameJson["rotateMix"] = frame.value1;
                     if (frame.value2 != 1.0f) frameJson["translateMix"] = frame.value2;
                     if (frame.value4 != 1.0f) frameJson["scaleMix"] = frame.value4;
@@ -307,7 +307,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                 if (pathMap.contains("mix")) {
                     for (const auto& frame : pathMap.at("mix")) {
                         Json frameJson = Json::object();
-                        if (frame.time != 0.0f) frameJson["time"] = frame.time;
+                        if (frame.time != 0.0f) frameJson["time"] = static_cast<double>(frame.time);
                         if (frame.value1 != 1.0f) frameJson["rotateMix"] = frame.value1;
                         if (frame.value2 != 1.0f) frameJson["translateMix"] = frame.value2; 
                         writeCurve(frame, frameJson);
@@ -325,7 +325,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
                         Json attachmentJson = Json::array(); 
                         for (const auto& frame : attachmentTimeline.at("deform")) {
                             Json frameJson = Json::object();
-                            frameJson["time"] = frame.time;
+                            frameJson["time"] = static_cast<double>(frame.time);
                             if (!frame.vertices.empty()) {
                                 if (frame.int1 != 0) frameJson["offset"] = frame.int1; 
                                 frameJson["vertices"] = frame.vertices; 
@@ -341,7 +341,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
         if (!animation.drawOrder.empty()) {
             for (const auto& frame : animation.drawOrder) {
                 Json frameJson = Json::object();
-                frameJson["time"] = frame.time;
+                frameJson["time"] = static_cast<double>(frame.time);
                 if (!frame.offsets.empty()) {
                     for (const auto& [slot, offset] : frame.offsets) {
                         Json offsetJson = Json::object();
@@ -356,7 +356,7 @@ Json writeJsonData(const SkeletonData& skeletonData) {
         if (!animation.events.empty()) {
             for (const auto& frame : animation.events) {
                 Json frameJson = Json::object(); 
-                frameJson["time"] = frame.time; 
+                frameJson["time"] = static_cast<double>(frame.time);
                 if (frame.str1) frameJson["name"] = frame.str1; 
                 int eventIndex = -1; 
                 for (size_t i = 0; i < skeletonData.events.size(); i++) {
